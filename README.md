@@ -36,6 +36,19 @@ This microservice provides a RESTful API for analyzing sentiment in comments fro
     - 'start_time' (optional): Start time for filtering comments by time range (Unix timestamp)
     - 'end_time' (optional): End time for filtering comments by time range (Unix timestamp)
 
+### Example Usage
+
+#### Retrieve Recent Comments for Subfeddit ID 2
+
+To retrieve the most recent comments for Subfeddit ID 2 within a specific time range, use the following URL format:
+
+```
+http://localhost:5000/api/v1/recent_comments/2?limit=2&start_time=1722223232&end_time=1734800000
+```
+
+- `limit=2`: Specifies to retrieve a maximum of 2 comments.
+- `start_time=1722223232`: Specifies the start time of the time range.
+- `end_time=1734800000`: Specifies the end time of the time range.
 #### Response
 
 - Status Code: '200 OK' on success, '500 Internal Server Error' on failure
