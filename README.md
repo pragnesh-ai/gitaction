@@ -6,21 +6,21 @@ This microservice provides a RESTful API for analyzing sentiment in comments fro
 
 1. Clone the repository:
 
-    '''bash
+    ```bash
     git clone https://github.com/your-username/reddit-sentiment-analysis.git
-    '''
+    ```
 
 2. Install dependencies using pip:
 
-    '''bash
+    ```bash
     pip install -r requirements.txt
-    '''
+    ```
 
 3. Start the Flask application:
 
-    '''bash
+    ```bash
     python app.py
-    '''
+    ```
 
 ## API Endpoints
 
@@ -28,13 +28,13 @@ This microservice provides a RESTful API for analyzing sentiment in comments fro
 
 #### Request
 
-- Method: 'GET'
-- URL: '/api/v1/recent_comments/<subfeddit_id>'
+- Method: `GET`
+- URL: `/api/v1/recent_comments/<subfeddit_id>`
 - Parameters:
-    - 'limit' (optional): Number of comments to retrieve (default: 25)
-    - 'skip' (optional): Number of comments to skip (default: 0)
-    - 'start_time' (optional): Start time for filtering comments by time range (Unix timestamp)
-    - 'end_time' (optional): End time for filtering comments by time range (Unix timestamp)
+    - `limit` (optional): Number of comments to retrieve (default: 25)
+    - `skip` (optional): Number of comments to skip (default: 0)
+    - `start_time` (optional): Start time for filtering comments by time range (Unix timestamp)
+    - `end_time` (optional): End time for filtering comments by time range (Unix timestamp)
 
 ### Example Usage
 
@@ -51,10 +51,10 @@ http://localhost:5000/api/v1/recent_comments/2?limit=2&start_time=1722223232&end
 - `end_time=1734800000`: Specifies the end time of the time range.
 #### Response
 
-- Status Code: '200 OK' on success, '500 Internal Server Error' on failure
+- Status Code: `200 OK` on success, `500 Internal Server Error` on failure
 - Body: JSON array containing the most recent comments with sentiment analysis:
 
-    '''json
+    ```json
     [
         {
             "id": 123,
@@ -70,22 +70,22 @@ http://localhost:5000/api/v1/recent_comments/2?limit=2&start_time=1722223232&end
         },
         ...
     ]
-    '''
+    ```
 
 ## Error Handling
 
-- If there's an error fetching comments or analyzing sentiment, the API returns a JSON response with an error message and a status code of '500'.
+- If there`s an error fetching comments or analyzing sentiment, the API returns a JSON response with an error message and a status code of `500`.
 
 ## Logging
 
-- The application logs errors and exceptions to the console using the Python 'logging' module.
+- The application logs errors and exceptions to the console using the Python `logging` module.
 
 ## Contributing
 
 1. Fork the repository
-2. Create a new branch ('git checkout -b feature/new-feature')
-3. Make changes and commit ('git commit -am 'Add new feature'')
-4. Push to the branch ('git push origin feature/new-feature')
+2. Create a new branch (`git checkout -b feature/new-feature`)
+3. Make changes and commit (`git commit -am `Add new feature``)
+4. Push to the branch (`git push origin feature/new-feature`)
 5. Create a pull request
 
 ## License
