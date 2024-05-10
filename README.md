@@ -1,30 +1,80 @@
-# Introduction
-The `docker-compose.yml` file provides access to `Feddit` which is a fake reddit API built to complete the Allianz challenge. 
+# Reddit Sentiment Analysis Microservice
 
-# How-to-run
-1. Please make sure you have docker installed.
-2. To run `Feddit` API locally in the terminal, replace `<path-to-docker-compose.yml>` by the actual path of the given `docker-compose.yml` file in `docker compose -f <path-to-docker-compose.yml> up -d`. It should be available in [http://0.0.0.0:8080](http://0.0.0.0:8080). 
-3. To stop `Feddit` API in the terminal,  replace `<path-to-docker-compose.yml>` by the actual path of the given `docker-compose.yml` file in `docker compose -f <path-to-docker-compose.yml> down`.
+This microservice provides a RESTful API for analyzing sentiment in comments from a Reddit-like platform. It identifies if comments on a given subfeddit or category are positive, negative, or neutral.
 
-# API Specification
-Please visit either [http://0.0.0.0:8080/docs](http://0.0.0.0:8080/docs) or [http://0.0.0.0:8080/redoc](http://0.0.0.0:8080/redoc) for the documentation of available endpoints and examples of the responses.
-There are 3 subfeddits available. For each subfeddit there are more than 20,000 comments, that is why we use pagination in the JSON response with the following parameters:
+## Installation
 
-+ `skip` which is the number of comments to be skipped for each query
-+ `limit` which is the max returned number of comments in a JSON response.
+1. Clone the repository:
 
-# Data Schemas
-## Comment
+    '''bash
+    git clone https://github.com/your-username/reddit-sentiment-analysis.git
+    '''
 
-+ **id**: unique identifier of the comment.
-+ **username**: user who made/wrote the comment.
-+ **text**: content of the comment in free text format.
-+ **created_at**: timestamp in unix epoch time indicating when the comment was made/wrote.
+2. Install dependencies using pip:
 
-## Subfeddit
-+ **id**: unique identifier of the subfeddit
-+ **username**: user who started the subfeddit.
-+ **title**: topic of the subfeddit.
-+ **description**: short description of the subfeddit.
-+ **comments**: comments under the subfeddit.
+    '''bash
+    pip install -r requirements.txt
+    '''
 
+3. Start the Flask application:
+
+    '''bash
+    python app.py
+    '''
+
+## API Endpoints
+
+### Get Recent Comments
+
+#### Request
+
+- Method: 'GET'
+- URL: '/api/v1/recent_comments/<subfeddit_id>'
+- Parameters:
+    - 'limit' (optional): Number of comments to retrieve (default: 25)
+    - 'skip' (optional): Number of comments to skip (default: 0)
+    - 'start_time' (optional): Start time for filtering comments by time range (Unix timestamp)
+    - 'end_time' (optional): End time for filtering comments by time range (Unix timestamp)
+
+#### Response
+
+- Status Code: '200 OK' on success, '500 Internal Server Error' on failure
+- Body: JSON array containing the most recent comments with sentiment analysis:
+
+    '''json
+    [
+        {
+            "id": 123,
+            "text": "This is a positive comment!",
+            "polarity_score": 0.8,
+            "classification": "positive"
+        },
+        {
+            "id": 124,
+            "text": "This is a negative comment!",
+            "polarity_score": -0.5,
+            "classification": "negative"
+        },
+        ...
+    ]
+    '''
+
+## Error Handling
+
+- If there's an error fetching comments or analyzing sentiment, the API returns a JSON response with an error message and a status code of '500'.
+
+## Logging
+
+- The application logs errors and exceptions to the console using the Python 'logging' module.
+
+## Contributing
+
+1. Fork the repository
+2. Create a new branch ('git checkout -b feature/new-feature')
+3. Make changes and commit ('git commit -am 'Add new feature'')
+4. Push to the branch ('git push origin feature/new-feature')
+5. Create a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
